@@ -13,11 +13,12 @@ function get_CURL($url)
 $result = get_CURL('https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=UCkXmLjEr95LVtGuIm3l2dPg&key=AIzaSyAgTvKRb4bEeWoA1N5zEXT4rzhdoR_qkhI');
 
 $youtubeProfilePic = $result['items'][0]['snippet']['thumbnails']['medium']['url'];
-$channleName = $result['items'][0]['snippet']['title'];
-$subscriber = $result['items'][0]['statistics']['subscriberCount'];
+$channelName = $result['items'][0]['snippet']['title'];
+$subscribers = $result['items'][0]['statistics']['subscriberCount'];
 
 // latest vidoe
-$result = get_CURL('https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&key=AIzaSyAgTvKRb4bEeWoA1N5zEXT4rzhdoR_qkhI&channelId=UCkXmLjEr95LVtGulm3l2dPg&')
+$result = get_CURL('https://www.googleapis.com/youtube/v3/search?key=AIzaSyAgTvKRb4bEeWoA1N5zEXT4rzhdoR_qkhI&channelId=UCkXmLjEr95LVtGuIm3l2dPg&maxResults=1&order=date&part=snippet');
+$latestVideo = $result['items'][0]['id']['videoId'];
 
 ?>
 <!DOCTYPE html>
@@ -31,7 +32,7 @@ $result = get_CURL('https://www.googleapis.com/youtube/v3/channels?part=snippet,
   <title>My Porfolio</title>
 
   <!-- Bootstrap -->
-  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -76,18 +77,30 @@ $result = get_CURL('https://www.googleapis.com/youtube/v3/channels?part=snippet,
   <!-- akhir about -->
 
   <!-- Youtube & IG -->
-  <section class="social-media bg-light" id="social-media">
+  <section class="social bg-light" id="social">
     <div class="container">
       <div class="row pt-4 mb-4">
         <div class="col text-center">
-          <h2>Social Media</h2>
+          <h2>Sosial Media</h2>
         </div>
       </div>
       <div class="row justify-content-center">
         <div class="col-md-5">
           <div class="row">
             <div class="col-md-4">
-              <img src="<?= $youtubeProfilePic; ?>" class="rounded-circle-img-thumbnail">
+              <img src="<?= $youtubeProfilePic; ?>" alt="" width="200" class="rounded-circle img-thumbnail">
+            </div>
+            <div class="col-md-8">
+              <h5><?= $channelName; ?></h5>
+              <p><?= $subscribers; ?> Subscribers.</p>
+              <div class="g-ytsubscribe" data-channelid="UCkXmLjEr95LVtGuIm3l2dPg" data-layout="default" data-count="default"></div>
+            </div>
+          </div>
+          <div class="row mt-3 pb-3">
+            <div class="col">
+              <div class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/<?= $latestVideo; ?>?rel=0" allowfullscreen></iframe>
+              </div>
             </div>
           </div>
         </div>
@@ -205,9 +218,9 @@ $result = get_CURL('https://www.googleapis.com/youtube/v3/channels?part=snippet,
 
 
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <!-- Include all compiled plugins (below), or include individual files as needed -->
-  <script src="js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
   <script src="https://apis.google.com/js/platform.js"></script>
 </body>
 
